@@ -1,0 +1,8 @@
+# Place your repository screenshots in this folder:
+# 1. 01-login-vulnerable.png   - Vulnerable AAL1 Login page
+# 2. 02-mfa-setup.png           - Scannable QR Code & Live TOTP Countdown
+# 3. 03-login-secure.png        - 2-Step Smooth Cross-Fading MFA Challenge
+# 4. 04-dashboard-aal2.png      - NIST AAL2 Executive Dashboard & Telemetry
+# 5. 05-exploit-blocked.png     - Exploit Inspector blocking document.cookie & Replay
+# 6. 06-attacker-c2.png         - Port 4000 Attacker Loot Console
+

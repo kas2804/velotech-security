@@ -1,0 +1,46 @@
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json.bak
+
+# Local SSL/TLS Certificates and Private Keys (CRITICAL: Do not commit!)
+server/certs/*.pem
+server/certs/*.key
+server/certs/*.crt
+server/certs/*.csr
+server/certs/*.cer
+*.pem
+*.key
+*.crt
+
+# Keep the certs directory structure in git
+!server/certs/.gitkeep
+
+# Environment Variables & Secrets
+.env
+.env.local
+.env.*.local
+*.env
+
+# Runtime / Attacker Loot output
+*.loot.json
+loot/
+
+# Operating System Files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE & Editor Settings
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+

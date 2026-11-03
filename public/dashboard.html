@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VeloTech Cyber Defense — Enterprise Dashboard</title>
+  <meta name="description"
+    content="Simulated enterprise project management dashboard with live security telemetry and exploit inspector.">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <!-- Navigation Header -->
+  <header class="navbar">
+    <a href="/dashboard" class="nav-brand">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      </svg>
+      <span>VELO<span class="brand-badge">TECH</span> CYBER DEFENSE</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/dashboard" class="nav-link active">Dashboard</a></li>
+      <li><a href="/login-vulnerable" class="nav-link badge-vulnerable">⚠️ Test Vulnerable Flow</a></li>
+      <li><a href="/login-secure" class="nav-link badge-secure">🛡️ Test Secure Flow</a></li>
+      <li><a href="http://localhost:4000" target="_blank" class="nav-link" style="color: #FF7B72;">Attacker C2</a></li>
+      <li><a href="/logout" class="nav-link" style="color: #FF7B72;">Logout</a></li>
+    </ul>
+  </header>
+
+  <!-- Main Container -->
+  <!-- User Profile & Assurance Level Header -->
+  <section class="dashboard-header">
+    <div class="user-badge" id="userProfileBadge" style="cursor: pointer; position: relative;"
+      title="Click to view User Profile & Account Settings">
+      <div class="user-avatar" id="userAvatar" style="transition: transform 0.2s, box-shadow 0.2s;">AM</div>
+      <div class="user-meta">
+        <div style="display: flex; align-items: center; gap: 0.5rem;">
+          <h2 id="userName" style="margin: 0;">Alex Mercer</h2>
+          <span
+            style="font-size: 0.65rem; background: rgba(0, 229, 255, 0.1); color: var(--accent-blue); padding: 0.15rem 0.4rem; border-radius: 4px; border: 1px solid var(--border-blue);">View
+            Profile ↗</span>
+        </div>
+        <p id="userRole">Lead Systems Architect • Core Infrastructure & Cyber Defense</p>
+        <p id="userEmail" style="color: var(--text-dim); font-size: 0.78rem; font-family: var(--font-mono);">
+          alex.mercer@velotech.io</p>
+      </div>
+    </div>
+    <div style="text-align: right;">
+      <div id="securityBadge" class="security-mode-badge badge-secure-active">
+        <span>Loading Assurance Level...</span>
+      </div>
+      <div style="margin-top: 0.4rem;">
+        <a href="/logout" class="btn btn-secondary"
+          style="width: auto; padding: 0.35rem 0.8rem; font-size: 0.8rem; display: inline-flex;">Sign Out</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dashboard Content Grid -->
+  <div class="dashboard-grid">
+    <!-- Left Column: Enterprise Projects -->
+    <section class="card">
+      <div class="card-title">
+        <span>Enterprise Projects & Milestones</span>
+        <span style="font-size: 0.8rem; font-family: var(--font-mono); color: var(--accent-neon);">4 Active
+          Initiatives</span>
+      </div>
+
+      <table class="data-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Project Name</th>
+            <th>Status</th>
+            <th>Progress</th>
+            <th>Risk Level</th>
+          </tr>
+        </thead>
+        <tbody id="projectsTableBody">
+          <tr>
+            <td colspan="5" style="text-align: center; color: var(--text-muted);">Loading project data...</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="margin-top: 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+        <div
+          style="flex: 1; min-width: 200px; background: #090C10; padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+          <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Infrastructure Uptime
+          </div>
+          <div style="font-size: 1.4rem; font-weight: 700; color: var(--accent-neon); margin-top: 0.2rem;">99.998%
+          </div>
+          <div style="font-size: 0.72rem; color: var(--text-dim);">Zero unplanned failovers</div>
+        </div>
+        <div
+          style="flex: 1; min-width: 200px; background: #090C10; padding: 1rem; border-radius: var(--radius-md); border: 1px solid var(--border-subtle);">
+          <div style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase;">Session Guard Status
+          </div>
+          <div style="font-size: 1.4rem; font-weight: 700; color: var(--accent-blue); margin-top: 0.2rem;">Active
+          </div>
+          <div style="font-size: 0.72rem; color: var(--text-dim);">IP & UA Binding Enforced</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Right Column: Exploit Inspector & Security Telemetry -->
+    <section class="card exploit-panel">
+      <div class="card-title">
+        <span>Exploit Inspector & Telemetry</span>
+        <span class="auth-badge badge-green" style="margin: 0; font-size: 0.7rem;">Live Testing</span>
+      </div>
+
+      <p style="font-size: 0.85rem; color: var(--text-muted); line-height: 1.4;">
+        Test client-side session vulnerability against XSS/AitM cookie theft and session replay.
+      </p>
+
+      <!-- Live Cookie Status -->
+      <div
+        style="margin: 1rem 0; padding: 0.75rem; background: #090C10; border-radius: var(--radius-md); border: 1px solid var(--border-subtle); font-size: 0.82rem;">
+        <div style="color: var(--text-muted); font-size: 0.72rem; text-transform: uppercase; font-weight: 600;">
+          JavaScript (document.cookie) Accessibility:
+        </div>
+        <div id="cookieStatusText" style="font-family: var(--font-mono); margin-top: 0.35rem; word-break: break-all;">
+          Checking cookie visibility...
+        </div>
+      </div>
+
+      <!-- Security Flags Matrix -->
+      <div id="sessionFlags"
+        style="font-size: 0.8rem; font-family: var(--font-mono); display: flex; flex-direction: column; gap: 0.3rem; margin-bottom: 1rem;">
+        <!-- Populated by JS -->
+      </div>
+
+      <!-- Session Binding Details -->
+      <div
+        style="background: rgba(0, 229, 255, 0.04); border: 1px dashed var(--border-blue); padding: 0.75rem; border-radius: var(--radius-md); font-size: 0.78rem; font-family: var(--font-mono); margin-bottom: 1.25rem;">
+        <div style="color: var(--accent-blue); font-weight: 600; margin-bottom: 0.3rem;">🔒 Session Binding
+          Fingerprint:</div>
+        <div>Bound IP: <span id="boundIp" style="color: var(--text-primary);">--</span></div>
+        <div>Bound UA: <span id="boundUa" style="color: var(--text-primary);">--</span></div>
+      </div>
+
+      <!-- Exploit Action Buttons -->
+      <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+
+
+        <button type="button" id="testReplayBtn" class="btn btn-outline-neon"
+          style="font-size: 0.85rem; padding: 0.65rem 1rem;">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="23 4 23 10 17 10" />
+            <polyline points="1 20 1 14 7 14" />
+            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15" />
+          </svg>
+          <span>Simulate Attacker Replay (Port 4000)</span>
+        </button>
+      </div>
+
+      <!-- Terminal Output -->
+      <div class="exploit-terminal" id="exploitTerminal">
+        <div class="terminal-line blue">[*] Exploit Inspector Initialized.</div>
+        <div class="terminal-line">[*] Ready for security verification of Flow A vs Flow B.</div>
+      </div>
+    </section>
+  </div>
+  </main>
+
+  <script src="/js/attack.js"></script>
+  <script src="/js/dashboard.js"></script>
+</body>
+
+</html>

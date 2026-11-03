@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VeloTech Security Portal — Hardened MFA (NIST AAL2)</title>
+  <meta name="description"
+    content="Secure 2-step authentication flow with TOTP MFA and HttpOnly/Secure session cookies.">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <!-- Navigation Header -->
+  <header class="navbar">
+    <a href="/login-secure" class="nav-brand">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+      </svg>
+      <span>VELO<span class="brand-badge">TECH</span> CYBER DEFENSE</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="/login-vulnerable" class="nav-link badge-vulnerable">⚠️ Vulnerable Flow (AAL1)</a></li>
+      <li><a href="/login-secure" class="nav-link active badge-secure">🛡️ Secure Flow (AAL2)</a></li>
+      <li><a href="/mfa-setup" class="nav-link">🔑 MFA Setup</a></li>
+      <li><a href="http://localhost:4000" target="_blank" class="nav-link" style="color: #FF7B72;">Attacker C2</a></li>
+    </ul>
+  </header>
+
+  <!-- Main Content Area -->
+  <main class="main-content">
+    <div class="auth-wrapper">
+      <div class="auth-card" id="secureAuthCard">
+        <div class="auth-header">
+          <span class="auth-badge badge-green">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+            </svg>
+            NIST AAL2 — Hardened Pipeline
+          </span>
+          <h1 class="auth-title">Secure Authentication</h1>
+          <p class="auth-subtitle">Two-Step MFA & Hardened Session Management</p>
+        </div>
+
+        <div id="alertContainer"></div>
+
+        <!-- Step 1: Password Submission -->
+        <div id="step1Container" class="auth-step step-active">
+          <form id="secureStep1Form" autocomplete="off">
+            <div class="form-group">
+              <label for="username" class="form-label">Enterprise Username / Email</label>
+              <div class="input-wrapper">
+                <span class="input-icon-left">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                  </svg>
+                </span>
+                <input type="text" id="username" class="form-input input-with-icon" placeholder="admin" required
+                  autofocus>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="password" class="form-label">Password</label>
+              <div class="input-wrapper">
+                <span class="input-icon-left">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="3" y="11" width="18" height="11" rx="2" ry="2" />
+                    <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                  </svg>
+                </span>
+                <input type="password" id="password" class="form-input input-with-icon" placeholder="••••••••••••"
+                  required>
+                <button type="button" id="togglePassword" class="password-toggle" title="Toggle password visibility">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
+                    <circle cx="12" cy="12" r="3" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="margin-top: 0.5rem;">
+              <span>Continue to MFA Step</span>
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </button>
+          </form>
+
+          <div class="demo-credentials-box">
+            <div class="cred-title">
+              <span>Demo Credentials</span>
+              <button type="button" id="quickFillCreds" class="copy-cred-btn">Auto-Fill</button>
+            </div>
+            <div>User: <code>admin</code></div>
+            <div>Pass: <code>Password123!</code></div>
+            <div style="margin-top: 0.4rem; color: var(--accent-neon); font-size: 0.72rem;">
+              🛡️ Flow B: Validates password, then challenges for 6-digit TOTP code.
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: 6-Digit TOTP Challenge (Cross-faded in same card) -->
+        <div id="step2Container" class="auth-step step-hidden">
+          <form id="secureStep2Form" autocomplete="off">
+            <div style="text-align: center; margin-bottom: 1.25rem;">
+              <div style="font-size: 0.88rem; color: var(--text-muted);">
+                Enter the 6-digit security code from your Authenticator App:
+              </div>
+            </div>
+
+            <div class="totp-input-container">
+              <input type="text" inputmode="numeric" maxlength="1" class="totp-digit" autocomplete="one-time-code"
+                required>
+              <input type="text" inputmode="numeric" maxlength="1" class="totp-digit" required>
+              <input type="text" inputmode="numeric" maxlength="1" class="totp-digit" required>
+              <input type="text" inputmode="numeric" maxlength="1" class="totp-digit" required>
+              <input type="text" inputmode="numeric" maxlength="1" class="totp-digit" required>
+              <input type="text" inputmode="numeric" maxlength="1" class="totp-digit" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              </svg>
+              <span>Verify MFA & Authenticate</span>
+            </button>
+
+            <div
+              style="display: flex; justify-content: space-between; align-items: center; margin-top: 1.25rem; font-size: 0.82rem;">
+              <button type="button" id="backToStep1" class="copy-cred-btn" style="color: var(--text-muted);">
+                &larr; Back to Password
+              </button>
+              <button type="button" id="fetchLiveTotpBtn" class="copy-cred-btn">
+                ⚡ Fetch Live Demo Code
+              </button>
+            </div>
+          </form>
+
+          <div class="demo-credentials-box" style="margin-top: 1.25rem;">
+            <div class="cred-title">
+              <span>MFA Authenticator Enrollment</span>
+              <a href="/mfa-setup" target="_blank"
+                style="color: var(--accent-blue); text-decoration: none; font-size: 0.72rem;">View QR Code &rarr;</a>
+            </div>
+            <div style="font-size: 0.75rem; color: var(--text-dim);">
+              Base32 Secret: <code>JBSWY3DPEHPK3PXP</code>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top: 1.5rem; text-align: center;">
+          <a href="/login-vulnerable" style="color: #FF7B72; font-size: 0.85rem; text-decoration: none;">
+            &larr; Test Vulnerable Flow (AAL1 Single-Factor)
+          </a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="/js/attack.js"></script>
+  <script src="/js/secure-login.js"></script>
+</body>
+
+</html>
